@@ -66,6 +66,21 @@ function App() {
       const currentIndex = blocks.findIndex((block) => block.id === selectedId);
 
       switch (e.key.toLowerCase()) {
+        case "tab":
+          if (e.shiftKey) {
+            if (currentIndex > 0) {
+              setSelectedId(blocks[currentIndex - 1].id);
+            }
+          } else {
+            e.preventDefault();
+            if (currentIndex < blocks.length - 1) {
+              setSelectedId(blocks[currentIndex + 1].id);
+            } else {
+              // Add new block at the end when reaching the last block
+              addBlock(-1);
+            }
+          }
+          break;
         case "h":
           if (currentIndex > 0) {
             setSelectedId(blocks[currentIndex - 1].id);
@@ -95,6 +110,7 @@ function App() {
           }
           break;
         case "x":
+        case "d":
           if (blocks.length > 1 && currentIndex > 0) {
             // Delete only the selected block
             deleteBlocks([currentIndex]);
