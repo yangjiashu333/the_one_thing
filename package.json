@@ -7,7 +7,9 @@
     "start": "electron .",
     "build": "webpack --config webpack.config.js",
     "watch": "webpack --config webpack.config.js --watch",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "concurrently \"npm run start\" \"npm run watch\"",
+    "mac": "electron-builder --mac"
   },
   "author": "",
   "license": "ISC",
@@ -16,8 +18,10 @@
     "@babel/preset-env": "^7.22.20",
     "@babel/preset-react": "^7.22.15",
     "babel-loader": "^9.1.3",
+    "concurrently": "^9.1.2",
     "css-loader": "^6.8.1",
     "electron": "^28.1.0",
+    "electron-builder": "^26.0.12",
     "style-loader": "^3.3.3",
     "webpack": "^5.88.2",
     "webpack-cli": "^5.1.4"
@@ -29,5 +33,15 @@
   "config": {
     "electron_mirror": "https://npmmirror.com/mirrors/electron/",
     "electron-builder-binaries_mirror": "https://npmmirror.com/mirrors/electron-builder-binaries/"
+  },
+  "build": {
+    "appId": "com.example.electronapp",
+    "productName": "The One Thing",
+    "mac": {
+      "target": [
+        "dmg",
+        "zip"
+      ]
+    }
   }
-} 
+}
