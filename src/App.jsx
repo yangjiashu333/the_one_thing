@@ -51,7 +51,7 @@ function App() {
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (isEditing) {
-        if (e.key === "Enter" || e.key === "Escape") {
+        if (e.key === "Escape") {
           // Save changes
           setBlocks(
             blocks.map((block) =>
@@ -66,21 +66,6 @@ function App() {
       const currentIndex = blocks.findIndex((block) => block.id === selectedId);
 
       switch (e.key.toLowerCase()) {
-        case "tab":
-          if (e.shiftKey) {
-            if (currentIndex > 0) {
-              setSelectedId(blocks[currentIndex - 1].id);
-            }
-          } else {
-            e.preventDefault();
-            if (currentIndex < blocks.length - 1) {
-              setSelectedId(blocks[currentIndex + 1].id);
-            } else {
-              // Add new block at the end when reaching the last block
-              addBlock(-1);
-            }
-          }
-          break;
         case "h":
           if (currentIndex > 0) {
             setSelectedId(blocks[currentIndex - 1].id);
@@ -92,22 +77,13 @@ function App() {
             setSelectedId(blocks[currentIndex + 1].id);
           } else {
             // Add new block at the end when reaching the last block
-            addBlock(-1);
+            // addBlock(-1);
           }
           break;
-        case "enter":
+        case "e":
+          e.preventDefault();
           setIsEditing(true);
           setEditText(blocks[currentIndex].text);
-          break;
-        case "backspace":
-          if (currentIndex > 0) {
-            // Delete the selected block and all blocks after it
-            const indicesToDelete = Array.from(
-              { length: blocks.length - currentIndex },
-              (_, i) => currentIndex + i
-            );
-            deleteBlocks(indicesToDelete);
-          }
           break;
         case "x":
         case "d":
